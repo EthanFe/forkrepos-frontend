@@ -1,7 +1,8 @@
 class Character {
 
   keyPressed(event) {
-    this.moving = this.keyMap[event.keyCode]
+    if (this.keyMap[event.keyCode] !== undefined)
+      this.moving = this.keyMap[event.keyCode]
 
     if (event.keyCode === 32 && this.isOnGround) {
       this.jump()
