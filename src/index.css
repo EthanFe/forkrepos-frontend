@@ -1,3 +1,12 @@
+html {
+  background: url("./images/background.png");
+  background-attachment: fixed;
+  /* background-position: center top; */
+  /* background-size: 100% auto; */
+  /* background-repeat: repeat-x; */
+  background-size: contain;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,10 +15,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background: url("./images/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 code {
@@ -19,6 +24,19 @@ code {
 
 .character {
   position: absolute;
+  width: 75px; /*240px;*/
+  /* height: 240px; */
+}
+
+.running {
+  position: absolute;
+  width: 100px; /*240px;*/
+  /* height: 240px; */
+}
+
+.projectile {
+  position: absolute;
+  width: 100px;
 }
 
 .enemy {
