@@ -2,16 +2,13 @@ class Character {
 
   keyPressed(event) {
     const keyMap = {
-      39: {x: 1, y: 0}, //'right',
-      37: {x: -1, y: 0}, //'left',
-      40: {x: 0, y: 1}, //'up',
-      38: {x: 0, y: -1}, //'down'
+      39: "right",//{x: 1, y: 0}, //'right',
+      37: "left",//{x: -1, y: 0}, //'left',
+      // 40: {x: 0, y: 1}, //'up',
+      // 38: {x: 0, y: -1}, //'down'
     }
 
-    const movementDirection = keyMap[event.keyCode]
-    if (movementDirection !== undefined) {
-      this.pos = {x: this.pos.x + movementDirection.x * 10, y: this.pos.y + movementDirection.y * 10}
-    }
+    this.moving = keyMap[event.keyCode]
   }
 
   constructor() {
@@ -21,6 +18,17 @@ class Character {
   }
 
   render() {
-    return `<img class="character" src="./images/cookie.png" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`
+    this.move()
+    const image_path = "./images/kirby.png"
+    return `<img class="character" src="${image_path}" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`
+  }
+
+  move() {
+    const moveSpeed = 15
+    if (this.moving === "right") {
+      this.pos = {x: this.pos.x + moveSpeed}
+    }
+    else if (this.moving === "left")
+      this.pos = {x: this.pos.x - moveSpeed}
   }
 }
