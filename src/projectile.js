@@ -14,7 +14,10 @@ class Projectile {
 	move() {
 		const moveSpeed = 25;
 		let newX = this.pos.x + moveSpeed;
-		if (newX > 800) this.remove();
 		this.pos.x = newX;
+	}
+
+	deleteable() {
+		return this.pos.x > 800
 	}
 }

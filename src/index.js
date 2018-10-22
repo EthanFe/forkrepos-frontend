@@ -6,7 +6,10 @@ function loop(timestamp) {
 
 	document.getElementById('game-view').innerHTML = chelsea.render();
 	for (element of projectiles) {
-		document.getElementById('game-view').innerHTML += element.render();
+		if (element.deleteable())
+			projectiles.splice(projectiles.indexOf(element), 1)
+		else
+			document.getElementById('game-view').innerHTML += element.render();
 	}
 
 	lastRender = timestamp;
