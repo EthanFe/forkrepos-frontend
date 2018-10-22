@@ -2,12 +2,12 @@ class Character {
 	keyPressed(event) {
 		if (this.keyMap[event.keyCode] !== undefined)
 			this.moving = this.keyMap[event.keyCode];
-
-		if (event.keyCode === 32 && this.isOnGround) {
+		console.log(event.keyCode);
+		if (event.keyCode === 38 && this.isOnGround) {
 			this.jump();
 		}
 
-		if (event.keyCode === 16) {
+		if (event.keyCode === 32) {
 			this.fireProjectile();
 		}
 	}
@@ -36,7 +36,7 @@ class Character {
 	render() {
 		this.move();
 		this.verticalMovement();
-		const image_path = './images/kirby.png';
+		const image_path = './images/kirbyhat.png';
 		return `<img class="character" src="${image_path}" style="bottom: ${
 			this.pos.y
 		}px; left: ${this.pos.x}px"></img>`;

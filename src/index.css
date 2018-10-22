@@ -3,8 +3,8 @@ html {
 	background-attachment: fixed;
 	/* background-position: center top; */
 	/* background-size: 100% auto; */
-  /* background-repeat: repeat-x; */
-  background-size: contain;
+	/* background-repeat: repeat-x; */
+	background-size: contain;
 }
 
 body {
@@ -30,5 +30,10 @@ code {
 
 .projectile {
 	position: absolute;
-	width: 100px;
+	width: 80px;
+}
+
+.enemy {
+	position: absolute;
+	width: 200px;
 }
