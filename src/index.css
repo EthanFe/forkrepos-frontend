@@ -1,7 +1,9 @@
 html {
 	background: url('./images/background.png');
-	background-attachment: fixed;
-	background-repeat: repeat-x;
+  background-attachment: fixed;
+  /* background-position: center top; */
+  /* background-size: 100% auto; */
+  /* background-repeat: repeat-x; */
 }
 
 body {
@@ -20,5 +22,7 @@ code {
 }
 
 .character {
-	position: absolute;
+  position: absolute;
+  width: 240px;
+  /* height: 240px; */
 }
