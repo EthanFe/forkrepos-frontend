@@ -18,6 +18,6 @@ class Projectile {
 	}
 
 	deleteable() {
-		return this.pos.x > 800
+		return this.pos.x > 1200
 	}
 }

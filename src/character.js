@@ -46,7 +46,7 @@ class Character {
 		const moveSpeed = 15;
 		if (this.moving === 'right') {
 			let newX = this.pos.x + moveSpeed;
-			if (newX > 800) newX = 800;
+			if (newX > 1200) newX = 1200;
 			this.pos.x = newX;
 		} else if (this.moving === 'left') {
 			let newX = this.pos.x - moveSpeed;
