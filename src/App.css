@@ -7,15 +7,16 @@
   }
 } */
 
-.background {
-  margin: auto;
-  background-image: url("./images/background.png");
-  background-size: 600px 400px;
-  width: 1500px;
-  height: 800px;
+body {
+	margin: auto;
+	background-image: url('./images/background.png');
+	/* background-size: cover; */
+	/* width: 1500px;
+	height: 800px; */
 }
 
 .character {
-  position: relative;
-  top: 65px; left: 65px;
+	position: relative;
+	top: 65px;
+	left: 65px;
 }
