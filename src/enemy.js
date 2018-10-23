@@ -1,14 +1,16 @@
 class Enemy extends GameObject {
 	constructor() {
-		super({x: 1000, y: 200, width: 200, height: 360, imageName: "ep"})
-		this.health = 100
-		this.damageFlashTime = 150 //milliseconds
+		super({x: 1000, y: 200, width: 200, height: 360, imageName: 'ep'});
+		this.health = 100;
+		this.damageFlashTime = 150; //milliseconds
 	}
 
 	render() {
-		this.updateDamagedState()
+		this.updateDamagedState();
 		const imagePath = `./images/${this.imageName}.png`;
-		return `<img class="enemy" src="${imagePath}" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
+		return `<img class="enemy" src="${imagePath}" style="top: ${
+			this.pos.y
+		}px; left: ${this.pos.x}px"></img>`;
 	}
 
 	attack(x) {
@@ -21,21 +23,24 @@ class Enemy extends GameObject {
 	}
 
 	takeDamage(amount) {
-		this.health -= amount
-		this.timeDamaged = new Date().getTime()
+		this.health -= amount;
+		this.timeDamaged = new Date().getTime();
 	}
 
 	updateDamagedState() {
 		// dis is some lame-o hardcoding but hey w/e
-		if (this.timeDamaged !== undefined && (new Date().getTime() - this.timeDamaged) <= this.damageFlashTime) {
-			this.imageName = "epred"
+		if (
+			this.timeDamaged !== undefined &&
+			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
+		) {
+			this.imageName = 'ep_hit';
 		} else {
-			this.imageName = "ep"
+			this.imageName = 'ep';
 		}
 	}
 
 	deleteable() {
-		return this.health <= 0
+		return this.health <= 0;
 	}
 
 	//   move() {
