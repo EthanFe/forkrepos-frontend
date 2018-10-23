@@ -1,8 +1,8 @@
 class Character extends GameObject {
 	constructor(projectilesList, enemiesList) {
-		super({x: 0, y: 0, width: 100, height: 100, imageName: "kirbyhat"})
+		super({x: 0, y: 0, width: 100, height: 100, imageName: 'kirby'});
 		this.projectilesList = projectilesList;
-		this.enemiesList = enemiesList
+		this.enemiesList = enemiesList;
 		this.keyMap = {
 			39: 'right', //{x: 1, y: 0}, //'right',
 			37: 'left' //{x: -1, y: 0}, //'left',
@@ -14,7 +14,7 @@ class Character extends GameObject {
 		document.addEventListener('keydown', this.keyPressed.bind(this));
 		document.addEventListener('keyup', this.keyReleased.bind(this));
 	}
-	
+
 	keyPressed(event) {
 		if (this.keyMap[event.keyCode] !== undefined)
 			this.moving = this.keyMap[event.keyCode];
@@ -55,7 +55,9 @@ class Character extends GameObject {
 	}
 
 	fireProjectile() {
-		this.projectilesList.push(new Projectile(this.pos, null, this.enemiesList));
+		this.projectilesList.push(
+			new Projectile(this.pos, null, this.enemiesList)
+		);
 	}
 
 	isOnGround() {
