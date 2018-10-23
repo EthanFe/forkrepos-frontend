@@ -53,8 +53,8 @@ class Game {
         this.enemies.push(new Enemy(enemyType));
         let killCount = document.getElementById('kill-count')
         let count = parseInt(killCount.innerText)
-        killCount.innerText = parseInt(count + 1)
-        if (count % 5 === 0 && count > 1) {
+        killCount.innerText = parseInt(++count)
+        if (count % 5 === 0 && count > 0) {
             let stars = document.getElementById('stars')
             stars.innerHTML += `<span>&#9733;</span>`
         }

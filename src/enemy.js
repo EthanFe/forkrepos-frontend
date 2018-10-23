@@ -1,6 +1,6 @@
 class Enemy extends GameObject {
 	constructor(villainData) {
-		const x = Math.random() * 1000;
+		const x = Math.random() > 0.5 ? -150 : 1200
 		const y = 125 + Math.random() * 150;
 		super({
 			x: x,
