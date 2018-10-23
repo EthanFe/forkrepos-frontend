@@ -37,3 +37,7 @@ code {
 	position: absolute;
 	width: 200px;
 }
+
+.enemy {
+  position: absolute;
+}

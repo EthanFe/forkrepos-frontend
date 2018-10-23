@@ -23,7 +23,7 @@ class Enemy extends GameObject {
 		const imagePath = `./images/${this.imageName}.png`;
 		return `<img class="enemy" src="${imagePath}" style="top: ${
 			this.pos.y
-		}px; left: ${this.pos.x}px"></img>`;
+			}px; left: ${this.pos.x}px"></img>`;
 	}
 
 	attack(x) {
