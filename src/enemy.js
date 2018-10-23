@@ -1,6 +1,5 @@
 class Enemy extends GameObject {
-	constructor(villainType) {
-		console.log(villainType);
+	constructor(villainData) {
 		const x = Math.random() * 1000;
 		const y = 125 + Math.random() * 150;
 		super({
@@ -8,8 +7,9 @@ class Enemy extends GameObject {
 			y: y,
 			width: 200,
 			height: 360,
-			imageName: villainType.idle_image
+			imageName: "i dont even care"
 		});
+		this.villainData = villainData
 		this.health = 40;
 		this.damageFlashTime = 150; //milliseconds
 
@@ -58,9 +58,10 @@ class Enemy extends GameObject {
 			this.timeDamaged !== undefined &&
 			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
 		) {
-			this.imageName = 'pom_hit';
+			this.imageName = this.villainData.hit_image;
+			console.log(this.imageName)
 		} else {
-			this.imageName = 'pom';
+			this.imageName = this.villainData.idle_image;
 		}
 	}
 
