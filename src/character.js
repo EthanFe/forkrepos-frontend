@@ -18,7 +18,6 @@ class Character extends GameObject {
 	keyPressed(event) {
 		if (this.keyMap[event.keyCode] !== undefined)
 			this.moving = this.keyMap[event.keyCode];
-		console.log(event.keyCode);
 		if (event.keyCode === 38 && this.isOnGround) {
 			this.jump();
 		}
@@ -68,7 +67,6 @@ class Character extends GameObject {
 	}
 
 	verticalMovement() {
-		console.log(this.fallSpeed);
 		this.pos.y = this.pos.y - this.fallSpeed;
 		const fallAccel = 3;
 		if (!this.isOnGround()) {

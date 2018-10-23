@@ -34,6 +34,10 @@ class Enemy extends GameObject {
 		}
 	}
 
+	deleteable() {
+		return this.health <= 0
+	}
+
 	//   move() {
 	//     const moveSpeed = 15;
 	//         if (this.moving === "right") {
