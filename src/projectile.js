@@ -1,6 +1,7 @@
 class Projectile extends GameObject {
 	constructor(pos, direction, collisionTargets) {
 		super({x: pos.x, y: pos.y, width: 80, height: 72, imageName: "cookie"})
+		this.direction = direction
 		this.collisionTargets = collisionTargets
 		this.collided = false
 		this.damage = 10
@@ -14,14 +15,17 @@ class Projectile extends GameObject {
 
 	move() {
 		const moveSpeed = 25;
-		let newX = this.pos.x + moveSpeed;
-		this.pos.x = newX;
+
+		if (this.direction === "right")
+			this.pos.x += moveSpeed;
+		else
+			this.pos.x -= moveSpeed;
 
 		this.checkCollisions()
 	}
 
 	deleteable() {
-		return this.collided || this.pos.x > 1200 // edge of screen
+		return this.collided || this.pos.x > 1200 || this.pos.x < 0 // edge of screen
 	}
 
 	checkCollisions() {

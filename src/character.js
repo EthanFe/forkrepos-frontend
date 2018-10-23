@@ -22,8 +22,10 @@ class Character extends GameObject {
 			this.jump();
 		}
 
-		if (event.keyCode === 32) {
-			this.fireProjectile();
+		if (event.keyCode === 90) {
+			this.fireProjectile("left");
+		} else if (event.keyCode === 88) {
+			this.fireProjectile("right");
 		}
 	}
 
@@ -54,8 +56,8 @@ class Character extends GameObject {
 		}
 	}
 
-	fireProjectile() {
-		this.projectilesList.push(new Projectile(this.pos, null, this.enemiesList));
+	fireProjectile(direction) {
+		this.projectilesList.push(new Projectile(this.pos, direction, this.enemiesList));
 	}
 
 	isOnGround() {
