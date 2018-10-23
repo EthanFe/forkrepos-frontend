@@ -1,8 +1,15 @@
 class Enemy extends GameObject {
-	constructor() {
+	constructor(villainType) {
+		console.log(villainType);
 		const x = Math.random() * 1000;
 		const y = 125 + Math.random() * 150;
-		super({x: x, y: y, width: 200, height: 360, imageName: 'ep'});
+		super({
+			x: x,
+			y: y,
+			width: 200,
+			height: 360,
+			imageName: villainType.idle_image
+		});
 		this.health = 40;
 		this.damageFlashTime = 150; //milliseconds
 
