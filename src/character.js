@@ -1,8 +1,8 @@
 class Character extends GameObject {
 	constructor(projectilesList, enemiesList) {
-		super({x: 0, y: 0, width: 100, height: 100, imageName: "kirbyhat"})
+		super({x: 0, y: 0, width: 100, height: 100, imageName: 'kirby'});
 		this.projectilesList = projectilesList;
-		this.enemiesList = enemiesList
+		this.enemiesList = enemiesList;
 		this.keyMap = {
 			39: 'right', //{x: 1, y: 0}, //'right',
 			37: 'left' //{x: -1, y: 0}, //'left',
@@ -14,17 +14,18 @@ class Character extends GameObject {
 		document.addEventListener('keydown', this.keyPressed.bind(this));
 		document.addEventListener('keyup', this.keyReleased.bind(this));
 	}
-	
+
 	keyPressed(event) {
 		if (this.keyMap[event.keyCode] !== undefined)
 			this.moving = this.keyMap[event.keyCode];
-		console.log(event.keyCode);
 		if (event.keyCode === 38 && this.isOnGround) {
 			this.jump();
 		}
 
-		if (event.keyCode === 32) {
-			this.fireProjectile();
+		if (event.keyCode === 90) {
+			this.fireProjectile('left');
+		} else if (event.keyCode === 88) {
+			this.fireProjectile('right');
 		}
 	}
 
@@ -55,8 +56,10 @@ class Character extends GameObject {
 		}
 	}
 
-	fireProjectile() {
-		this.projectilesList.push(new Projectile(this.pos, null, this.enemiesList));
+	fireProjectile(direction) {
+		this.projectilesList.push(
+			new Projectile(this.pos, direction, this.enemiesList)
+		);
 	}
 
 	isOnGround() {
@@ -68,7 +71,6 @@ class Character extends GameObject {
 	}
 
 	verticalMovement() {
-		console.log(this.fallSpeed);
 		this.pos.y = this.pos.y - this.fallSpeed;
 		const fallAccel = 3;
 		if (!this.isOnGround()) {
