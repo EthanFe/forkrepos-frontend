@@ -1,6 +1,6 @@
 class Enemy extends GameObject {
 	constructor() {
-		super({x: 1000, y: 200, width: 200, height: 360, imageName: 'ep'});
+		super({x: 1000, y: 200, width: 200, height: 360, imageName: 'pom'});
 		this.health = 100;
 		this.damageFlashTime = 150; //milliseconds
 	}
@@ -33,9 +33,9 @@ class Enemy extends GameObject {
 			this.timeDamaged !== undefined &&
 			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
 		) {
-			this.imageName = 'ep_hit';
+			this.imageName = 'pom_hit';
 		} else {
-			this.imageName = 'ep';
+			this.imageName = 'pom';
 		}
 	}
 
