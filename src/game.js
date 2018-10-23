@@ -45,5 +45,8 @@ class Game {
     spawnNewEnemy() {
         const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
         this.enemies.push(new Enemy(enemyType));
+        let killCount = document.getElementById('kill-count')
+        let count = parseInt(killCount.innerText)
+        killCount.innerText = parseInt(count + 1)
     }
 }
