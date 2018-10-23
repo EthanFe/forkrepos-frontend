@@ -1,6 +1,6 @@
 class Character extends GameObject {
 	constructor(projectilesList, enemiesList) {
-		super({x: 0, y: 0, width: 100, height: 100, imageName: 'kirby'});
+		super({ x: 0, y: 0, width: 100, height: 100, imageName: 'blue' });
 		this.projectilesList = projectilesList;
 		this.enemiesList = enemiesList;
 		this.keyMap = {
@@ -27,6 +27,10 @@ class Character extends GameObject {
 		} else if (event.keyCode === 88) {
 			this.fireProjectile('right');
 		}
+
+		if (event.keyCode === 72) {
+			this.changeHero()
+		}
 	}
 
 	keyReleased(event) {
@@ -40,7 +44,7 @@ class Character extends GameObject {
 		const image_path = `./images/${this.imageName}.png`;
 		return `<img class="character" src="${image_path}" style="bottom: ${
 			this.pos.y
-		}px; left: ${this.pos.x}px"></img>`;
+			}px; left: ${this.pos.x}px"></img>`;
 	}
 
 	move() {
@@ -77,6 +81,19 @@ class Character extends GameObject {
 			this.fallSpeed += fallAccel;
 		} else {
 			this.pos.y = 0;
+		}
+	}
+
+	changeHero() {
+		const heroImageNames = heroes.map(function (hero) {
+			return hero.idle_image
+		})
+		const currentIndex = heroImageNames.indexOf(this.imageName)
+		console.log(heroImageNames, currentIndex)
+		if (currentIndex < heroImageNames.length - 1) {
+			this.imageName = heroImageNames[currentIndex + 1]
+		} else {
+			this.imageName = heroImageNames[0]
 		}
 	}
 }
