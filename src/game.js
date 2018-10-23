@@ -56,7 +56,7 @@ class Game {
         killCount.innerText = parseInt(count + 1)
         if (count % 5 === 0 && count > 1) {
             let stars = document.getElementById('stars')
-            stars.innerHTML += `<span>&#9734;</span>`
+            stars.innerHTML += `<span>&#9733;</span>`
         }
     }
 }
