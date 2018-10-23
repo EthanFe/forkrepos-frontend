@@ -6,6 +6,11 @@ const chelsea = new Character(projectiles, enemies);
 function loop(timestamp) {
 	var progress = timestamp - lastRender;
 
+	const enemySpawnChance = 0.025
+	if (Math.random() <= enemySpawnChance) {
+		// enemies.push(new Enemy());
+	}
+
 	document.getElementById('game-view').innerHTML = chelsea.render();
 
 	for (element of projectiles) {
@@ -18,6 +23,7 @@ function loop(timestamp) {
 		if (element.deleteable()) {
 			enemies.splice(enemies.indexOf(element), 1);
 			enemies.push(new Enemy());
+			// enemies.push(new Enemy());
 		} else {
 			document.getElementById('game-view').innerHTML += element.render();
 			element.attack(chelsea.pos.x);
