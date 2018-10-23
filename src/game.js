@@ -20,6 +20,11 @@ class Game {
         })
     }
 
+    playFatality() {
+        const fatality = document.getElementById('fatality');
+        fatality.play();
+    }
+
     loop(timestamp) {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
@@ -32,6 +37,7 @@ class Game {
         for (const enemy of this.enemies) {
             if (enemy.deleteable()) {
                 this.enemies.splice(this.enemies.indexOf(enemy), 1);
+                this.playFatality();
                 this.spawnNewEnemy();
             } else {
                 document.getElementById('game-view').innerHTML += enemy.render();
