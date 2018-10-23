@@ -1,9 +1,12 @@
 class Enemy extends GameObject {
 	constructor() {
-		super({x: 1000, y: 200, width: 100, height: 200, imageName: "ep"})
+		super({x: 1000, y: 200, width: 200, height: 360, imageName: "ep"})
+		this.health = 100
+		this.damageFlashTime = 150 //milliseconds
 	}
 
 	render() {
+		this.updateDamagedState()
 		const imagePath = `./images/${this.imageName}.png`;
 		return `<img class="enemy" src="${imagePath}" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
 	}
@@ -14,6 +17,20 @@ class Enemy extends GameObject {
 			this.pos.x = this.pos.x + moveSpeed;
 		} else if (this.pos.x > x) {
 			this.pos.x = this.pos.x - moveSpeed;
+		}
+	}
+
+	takeDamage(amount) {
+		this.health -= amount
+		this.timeDamaged = new Date().getTime()
+	}
+
+	updateDamagedState() {
+		// dis is some lame-o hardcoding but hey w/e
+		if (this.timeDamaged !== undefined && (new Date().getTime() - this.timeDamaged) <= this.damageFlashTime) {
+			this.imageName = "epred"
+		} else {
+			this.imageName = "ep"
 		}
 	}
 
