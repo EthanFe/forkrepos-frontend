@@ -1,34 +1,80 @@
-class Character {
+class Character extends GameObject {
+	constructor(projectilesList, enemiesList) {
+		super({x: 0, y: 0, width: 100, height: 100, imageName: "kirbyhat"})
+		this.projectilesList = projectilesList;
+		this.enemiesList = enemiesList
+		this.keyMap = {
+			39: 'right', //{x: 1, y: 0}, //'right',
+			37: 'left' //{x: -1, y: 0}, //'left',
+			// 40: {x: 0, y: 1}, //'up',
+			// 38: {x: 0, y: -1}, //'down'
+		};
+		this.fallSpeed = 0;
 
-  keyPressed(event) {
-    const keyMap = {
-      39: "right",//{x: 1, y: 0}, //'right',
-      37: "left",//{x: -1, y: 0}, //'left',
-      // 40: {x: 0, y: 1}, //'up',
-      // 38: {x: 0, y: -1}, //'down'
-    }
+		document.addEventListener('keydown', this.keyPressed.bind(this));
+		document.addEventListener('keyup', this.keyReleased.bind(this));
+	}
+	
+	keyPressed(event) {
+		if (this.keyMap[event.keyCode] !== undefined)
+			this.moving = this.keyMap[event.keyCode];
+		console.log(event.keyCode);
+		if (event.keyCode === 38 && this.isOnGround) {
+			this.jump();
+		}
 
-    this.moving = keyMap[event.keyCode]
-  }
+		if (event.keyCode === 32) {
+			this.fireProjectile();
+		}
+	}
 
-  constructor() {
-    this.pos = {x: 0, y: 0}
+	keyReleased(event) {
+		const movementDirection = this.keyMap[event.keyCode];
+		if (movementDirection === this.moving) this.moving = null;
+	}
 
-    document.addEventListener("keydown", this.keyPressed.bind(this))
-  }
+	render() {
+		this.move();
+		this.verticalMovement();
+		const image_path = `./images/${this.imageName}.png`;
+		return `<img class="character" src="${image_path}" style="bottom: ${
+			this.pos.y
+		}px; left: ${this.pos.x}px"></img>`;
+	}
 
-  render() {
-    this.move()
-    const image_path = "./images/kirby.png"
-    return `<img class="character" src="${image_path}" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`
-  }
+	move() {
+		const moveSpeed = 15;
+		if (this.moving === 'right') {
+			let newX = this.pos.x + moveSpeed;
+			if (newX > 1200) newX = 1200;
+			this.pos.x = newX;
+		} else if (this.moving === 'left') {
+			let newX = this.pos.x - moveSpeed;
+			if (newX < 0) newX = 0;
+			this.pos.x = newX;
+		}
+	}
 
-  move() {
-    const moveSpeed = 15
-    if (this.moving === "right") {
-      this.pos = {x: this.pos.x + moveSpeed}
-    }
-    else if (this.moving === "left")
-      this.pos = {x: this.pos.x - moveSpeed}
-  }
+	fireProjectile() {
+		this.projectilesList.push(new Projectile(this.pos, null, this.enemiesList));
+	}
+
+	isOnGround() {
+		return this.pos.y <= 0;
+	}
+
+	jump() {
+		this.fallSpeed = -30;
+	}
+
+	verticalMovement() {
+		console.log(this.fallSpeed);
+		this.pos.y = this.pos.y - this.fallSpeed;
+		const fallAccel = 3;
+		if (!this.isOnGround()) {
+			this.fallSpeed += fallAccel;
+		} else {
+			this.pos.y = 0;
+		}
+	}
 }
