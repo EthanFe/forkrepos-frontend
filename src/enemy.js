@@ -1,13 +1,11 @@
-class Enemy {
+class Enemy extends GameObject {
 	constructor() {
-		this.pos = {x: 1000, y: 200};
+		super({x: 1000, y: 200, width: 100, height: 200, imageName: "ep"})
 	}
 
 	render() {
-		const image_path = './images/ep.png';
-		return `<img class="enemy" src="${image_path}" style="top: ${
-			this.pos.y
-		}px; left: ${this.pos.x}px"></img>`;
+		const imagePath = `./images/${this.imageName}.png`;
+		return `<img class="enemy" src="${imagePath}" style="top: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
 	}
 
 	attack(x) {

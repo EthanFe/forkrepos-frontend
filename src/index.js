@@ -1,6 +1,6 @@
 const projectiles = [];
-const chelsea = new Character(projectiles);
 const eggplant = new Enemy();
+const chelsea = new Character(projectiles, [eggplant]);
 
 function loop(timestamp) {
 	var progress = timestamp - lastRender;
