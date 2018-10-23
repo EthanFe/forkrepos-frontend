@@ -1,7 +1,9 @@
 class Enemy extends GameObject {
 	constructor() {
-		super({x: 1000, y: 200, width: 200, height: 360, imageName: 'ep'});
-		this.health = 100;
+		const x = Math.random() * 1000
+		const y = 125 + Math.random() * 150
+		super({x: x, y: y, width: 200, height: 360, imageName: 'ep'});
+		this.health = 40;
 		this.damageFlashTime = 150; //milliseconds
 	}
 
@@ -14,7 +16,7 @@ class Enemy extends GameObject {
 	}
 
 	attack(x) {
-		const moveSpeed = 3;
+		const moveSpeed = 5;
 		if (this.pos.x < x) {
 			this.pos.x = this.pos.x + moveSpeed;
 		} else if (this.pos.x > x) {
