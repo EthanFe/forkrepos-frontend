@@ -5,6 +5,10 @@ class Enemy extends GameObject {
 		super({x: x, y: y, width: 200, height: 360, imageName: 'ep'});
 		this.health = 40;
 		this.damageFlashTime = 150; //milliseconds
+
+		this.timeLastWiggled = 0
+		this.wiggleDirection = "up"
+		this.wiggleTime = 3000
 	}
 
 	render() {
@@ -21,6 +25,17 @@ class Enemy extends GameObject {
 			this.pos.x = this.pos.x + moveSpeed;
 		} else if (this.pos.x > x) {
 			this.pos.x = this.pos.x - moveSpeed;
+		}
+
+		const wiggleSpeed = 1
+		if (new Date().getTime() - this.timeLastWiggled > this.wiggleTime) {
+			this.wiggleDirection = this.wiggleDirection === "up" ? "down" : "up"
+			this.timeLastWiggled = new Date().getTime()
+		}
+		if (this.wiggleDirection === "up") {
+			this.pos.y += wiggleSpeed
+		} else if (this.wiggleDirection === "down") {
+			this.pos.y -= wiggleSpeed
 		}
 	}
 
