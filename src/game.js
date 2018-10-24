@@ -3,10 +3,15 @@ class Game {
         this.villains = data.villains
         this.projectiles = [];
         this.enemies = [];
-        this.kills = 0
+        this.score = {
+            cookiesFired: 0,
+            cookiesHit: 0,
+            kills: 0
+        }
+        this.game_ended = false
 
         this.spawnNewEnemy()
-        this.chelsea = new Character(this.projectiles, this.enemies, data.heroes);
+        this.chelsea = new Character(this.projectiles, this.enemies, data.heroes, this.score);
 
         this.playMusic()
 
@@ -35,6 +40,9 @@ class Game {
     }
 
     loop() {
+        if (this.game_ended)
+            return
+        
         if (this.speedUpFactor > 1) {
             for (let i = 0; i < this.speedUpFactor; i++) {
                 this.renderComponents()
@@ -57,8 +65,10 @@ class Game {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
-            if (projectile.deleteable())
+            if (projectile.deleteable()) {
                 this.projectiles.splice(this.projectiles.indexOf(projectile), 1);
+                this.score.cookiesHit++
+            }
             else document.getElementById('game-view').innerHTML += projectile.render();
         }
 
@@ -75,15 +85,14 @@ class Game {
         }
 
         if (this.chelsea.deleteable()) {
-            document.getElementById('game-view').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
-            document.getElementById('life-stats').innerHTML = ""
+            this.endGame()
         }
     }
 
     incrementKills() {
         let killCount = document.getElementById('kill-count')
-        killCount.innerText = parseInt(++this.kills)
-        if (this.kills % 5 === 0 && this.kills > 0) {
+        killCount.innerText = parseInt(++this.score.kills)
+        if (this.score.kills % 5 === 0 && this.score.kills > 0) {
             let stars = document.getElementById('stars')
             stars.innerHTML += `<span>&#9733;</span>`
         }
@@ -92,5 +101,23 @@ class Game {
     spawnNewEnemy() {
         const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
         this.enemies.push(new Enemy(enemyType));
+    }
+
+    endGame() {
+        this.game_ended = true
+        document.getElementById('game-view').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
+        document.getElementById('life-stats').innerHTML = ""
+        this.submitScores()
+    }
+
+    submitScores() {
+        fetch("http://localhost:3000/submit_score", {
+            method: 'POST',
+            body: JSON.stringify({username: "test", score: this.score}),
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(() => console.log("korean bbq"))
     }
 }
