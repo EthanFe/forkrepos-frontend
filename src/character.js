@@ -10,6 +10,7 @@ class Character extends GameObject {
 			// 38: {x: 0, y: -1}, //'down'
 		};
 		this.fallSpeed = 0;
+		this.health = 100;
 
 		document.addEventListener('keydown', this.keyPressed.bind(this));
 		document.addEventListener('keyup', this.keyReleased.bind(this));
@@ -102,5 +103,32 @@ class Character extends GameObject {
 		} else {
 			this.imageName = heroImageNames[0]
 		}
+	}
+
+	takeDamage(amount) {
+		this.health -= amount;
+		this.timeDamaged = new Date().getTime();
+		let hearts = document.getElementsByClassName('lives stats')[0];
+		let heartsArr = hearts.innerText.split(' ');
+		heartsArr.pop();
+		let heartString = heartsArr.join();
+		hearts.innerHTML = heartString;
+	}
+
+	updateDamagedState() {
+		// dis is some lame-o hardcoding but hey w/e
+		if (
+			this.timeDamaged !== undefined &&
+			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
+		) {
+			this.imageName = this.villainData.hit_image;
+			console.log(this.imageName)
+		} else {
+			this.imageName = this.villainData.idle_image;
+		}
+	}
+
+	deleteable() {
+		return this.health <= 0;
 	}
 }

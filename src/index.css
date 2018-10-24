@@ -41,9 +41,18 @@ code {
   position: absolute;
 }
 
+.lives {
+	float: left;
+	margin: 10px;
+}
+
 #kills {
 	float: right;
 	margin: 10px;
+}
+
+.stats {
+	color: #e60000;
 }
 
 #stars {

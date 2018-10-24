@@ -11,7 +11,9 @@ class Enemy extends GameObject {
 		});
 		this.villainData = villainData
 		this.health = 40;
+		this.damage = 20;
 		this.damageFlashTime = 150; //milliseconds
+		this.collided = false;
 
 		this.timeLastWiggled = 0;
 		this.wiggleDirection = 'up';
@@ -26,15 +28,17 @@ class Enemy extends GameObject {
 			}px; left: ${this.pos.x}px"></img>`;
 	}
 
-	attack(x) {
-		const moveSpeed = 5;
-		if (this.pos.x < x) {
+	attack(target) {
+		const moveSpeed = 6;
+		if (this.pos.x < target.pos.x) {
 			this.pos.x = this.pos.x + moveSpeed;
-		} else if (this.pos.x > x) {
+		} else if (this.pos.x > target.pos.x) {
 			this.pos.x = this.pos.x - moveSpeed;
 		}
 
-		const wiggleSpeed = 1;
+		this.checkCollision(target);
+
+		const wiggleSpeed = 1.2;
 		if (new Date().getTime() - this.timeLastWiggled > this.wiggleTime) {
 			this.wiggleDirection =
 				this.wiggleDirection === 'up' ? 'down' : 'up';
@@ -45,6 +49,26 @@ class Enemy extends GameObject {
 		} else if (this.wiggleDirection === 'down') {
 			this.pos.y -= wiggleSpeed;
 		}
+	}
+
+	checkCollision(target) {
+		if (this.isColliding(target)) {
+			this.onCollideWith(target)
+		}
+	}
+
+	isColliding(target) {
+		const collisionPos = { x: this.pos.x + this.width / 2, y: this.pos.y + this.height / 2 }
+		const targetCollisionPos = { x: target.pos.x + target.width / 2, y: target.pos.y + target.height / 2 }
+		const xDistance = Math.abs(targetCollisionPos.x - collisionPos.x)
+		const yDistance = Math.abs(targetCollisionPos.y - collisionPos.y)
+		return (xDistance <= (target.width + this.width) / 2 &&
+			yDistance <= this.pos.y - 60)
+	}
+
+	onCollideWith(target) {
+		this.collided = true
+		target.takeDamage(this.damage)
 	}
 
 	takeDamage(amount) {
@@ -69,13 +93,4 @@ class Enemy extends GameObject {
 		return this.health <= 0;
 	}
 
-	//   move() {
-	//     const moveSpeed = 15;
-	//         if (this.moving === "right") {
-	//           this.pos = {x: this.pos.x + moveSpeed}
-	//         }
-	//         else if (this.moving === "left")
-	//           this.pos = {x: this.pos.x - moveSpeed}
-	//       }
-	//   }
 }

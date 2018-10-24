@@ -25,7 +25,7 @@ class Game {
         fatality.play();
     }
 
-    loop(timestamp) {
+    loop() {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
@@ -41,8 +41,12 @@ class Game {
                 this.spawnNewEnemy();
             } else {
                 document.getElementById('game-view').innerHTML += enemy.render();
-                enemy.attack(this.chelsea.pos.x);
+                enemy.attack(this.chelsea);
             }
+        }
+
+        if (this.chelsea.deleteable()) {
+            document.getElementById('game-view').innerHTML = "<h1> FATALITY! </h1>"
         }
 
         window.requestAnimationFrame(this.loop.bind(this));
