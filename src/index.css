@@ -37,7 +37,7 @@ code {
 	width: 200px;
 }
 
-.lives {
+#life-stats {
 	float: left;
 	margin: 10px;
 }

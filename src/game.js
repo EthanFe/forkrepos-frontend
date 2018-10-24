@@ -27,11 +27,11 @@ class Game {
 
     loop() {
         const speedUpFactor = 1
-        for (let i=0;i<speedUpFactor;i++) {
+        for (let i = 0; i < speedUpFactor; i++) {
             this.renderComponents()
         }
 
-        
+
 
         setTimeout(() => {
             // window.requestAnimationFrame(() => {
@@ -65,8 +65,8 @@ class Game {
         }
 
         if (this.chelsea.deleteable()) {
-            document.getElementById('game-view').innerHTML = "leaderboard placeholder..."
-            document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;'> FATALITY!</h1>"
+            document.getElementById('game-view').innerHTML = "<h1 style='margin-top: 0;'> FATALITY!</h1>"
+            document.getElementById('life-stats').innerHTML = ""
         }
     }
 
