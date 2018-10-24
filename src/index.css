@@ -41,7 +41,7 @@ code {
   position: absolute;
 }
 
-.lives {
+#life-stats {
 	float: left;
 	margin: 10px;
 }

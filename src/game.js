@@ -46,7 +46,8 @@ class Game {
         }
 
         if (this.chelsea.deleteable()) {
-            document.getElementById('game-view').innerHTML = "<h1> FATALITY! </h1>"
+            document.getElementById('game-view').innerHTML = "leaderboard placeholder..."
+            document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;'> FATALITY!</h1>"
         }
 
         window.requestAnimationFrame(this.loop.bind(this));
