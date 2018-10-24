@@ -33,6 +33,11 @@ class Character extends GameObject {
 		shot.play();
 	}
 
+	playHurtEffect() {
+		const hurt = document.getElementById('hurt');
+		hurt.play();
+	}
+
 	keyPressed(event) {
 		if (this.keyMap[event.keyCode] !== undefined && !this.knockbackState.active)
 			this.moving = this.keyMap[event.keyCode];
@@ -130,6 +135,7 @@ class Character extends GameObject {
 
 	takeDamage(amount, damageSource) {
 		if (!this.wasRecentlyDamaged()) {
+			this.playHurtEffect();
 			this.health -= amount;
 			this.timeDamaged = new Date().getTime();
 			let hearts = document.getElementById('hearts')
