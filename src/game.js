@@ -9,6 +9,14 @@ class Game {
 
         this.playMusic()
 
+        this.speedUpFactor = 1
+        document.addEventListener("keydown", (event) => {
+            if (event.keyCode == "189")
+                this.speedUpFactor *= 0.5
+            else if (event.keyCode == "187")
+                this.speedUpFactor *= 2
+        })
+
         // start rendering n stuff
         window.requestAnimationFrame(this.loop.bind(this));
     }
@@ -26,22 +34,22 @@ class Game {
     }
 
     loop() {
-        const speedUpFactor = 1
-        for (let i = 0; i < speedUpFactor; i++) {
-            this.renderComponents()
-        }
-
-
-
-        setTimeout(() => {
-            // window.requestAnimationFrame(() => {
-            //     for (let i=0;i<speedUpFactor;i++) {
-            //         console.log("help")
-            //         this.loop.bind(this)
-            //     }
-            // });
+        if (this.speedUpFactor > 1) {
+            for (let i = 0; i < this.speedUpFactor; i++) {
+                this.renderComponents()
+            }
             window.requestAnimationFrame(this.loop.bind(this));
-        }, 200);
+        } else if (this.speedUpFactor < 1) {
+            this.renderComponents()
+            const delay = (1000 / 30) * ((1 / this.speedUpFactor) - 1)
+            console.log("delaying for " + delay + " milliseconds")
+            setTimeout(() => {
+                window.requestAnimationFrame(this.loop.bind(this));
+            }, delay);
+        } else {
+            this.renderComponents()
+            window.requestAnimationFrame(this.loop.bind(this));
+        }
     }
 
     renderComponents() {
