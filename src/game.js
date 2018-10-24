@@ -35,21 +35,26 @@ class Game {
     }
 
     loop() {
+        let gameIsCool = true
         if (this.speedUpFactor > 1) {
             for (let i = 0; i < this.speedUpFactor; i++) {
-                this.renderComponents()
+                gameIsCool = this.renderComponents()
             }
-            window.requestAnimationFrame(this.loop.bind(this));
-        } else if (this.speedUpFactor < 1) {
-            this.renderComponents()
-            const delay = (1000 / 30) * ((1 / this.speedUpFactor) - 1)
-            console.log("delaying for " + delay + " milliseconds")
-            setTimeout(() => {
+            if (gameIsCool)
                 window.requestAnimationFrame(this.loop.bind(this));
-            }, delay);
+        } else if (this.speedUpFactor < 1) {
+            gameIsCool = this.renderComponents()
+            if (gameIsCool) {
+                const delay = (1000 / 30) * ((1 / this.speedUpFactor) - 1)
+                console.log("delaying for " + delay + " milliseconds")
+                setTimeout(() => {
+                    window.requestAnimationFrame(this.loop.bind(this));
+                }, delay);
+            }
         } else {
-            this.renderComponents()
-            window.requestAnimationFrame(this.loop.bind(this));
+            gameIsCool = this.renderComponents()
+            if (gameIsCool)
+                window.requestAnimationFrame(this.loop.bind(this));
         }
     }
 
@@ -76,7 +81,12 @@ class Game {
 
         if (this.chelsea.deleteable()) {
             document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
-            document.getElementById('game-view').innerHTML = "<p id='leaderboards'><strong>Leaderboards!</strong></p>"
+            let player = prompt("What's yo name?", "Tyranny");
+            document.getElementById('game-view').innerHTML = `<p id='leaderboards'><strong>${player} Wins!</strong></p>`
+            return false
+        }
+        else {
+            return true
         }
     }
 
