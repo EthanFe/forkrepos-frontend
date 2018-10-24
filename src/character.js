@@ -112,10 +112,10 @@ class Character extends GameObject {
 		if (!this.wasRecentlyDamaged()) {
 			this.health -= amount;
 			this.timeDamaged = new Date().getTime();
+			let hearts = document.getElementById('hearts')
+			let remaining = hearts.innerText.slice(2)
+			hearts.innerHTML = remaining;
 		}
-		// let hearts = document.getElementById('hearts')
-		// let remaining = hearts.innerText.slice(2)
-		// hearts.innerHTML = remaining;
 	}
 
 	updateDamagedState() {
