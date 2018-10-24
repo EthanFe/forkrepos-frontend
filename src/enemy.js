@@ -57,7 +57,7 @@ class Enemy extends GameObject {
 
 	onCollideWith(target) {
 		this.collided = true
-		target.takeDamage(this.damage)
+		target.takeDamage(this.damage, this.centerPoint)
 	}
 
 	takeDamage(amount) {

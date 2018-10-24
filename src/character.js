@@ -6,6 +6,14 @@ class Character extends GameObject {
 		this.heroesData = heroesData
 		this.setCurrentHero(0)
 
+		this.knockbackState = {
+			active: false,
+			timeStarted: null,
+			direction: null,
+			speed: null,
+			duration: null
+		}
+
 		this.keyMap = {
 			39: 'right', //{x: 1, y: 0}, //'right',
 			37: 'left' //{x: -1, y: 0}, //'left',
@@ -26,9 +34,9 @@ class Character extends GameObject {
 	}
 
 	keyPressed(event) {
-		if (this.keyMap[event.keyCode] !== undefined)
+		if (this.keyMap[event.keyCode] !== undefined && !this.knockbackState.active)
 			this.moving = this.keyMap[event.keyCode];
-		if (event.keyCode === 38 && this.isOnGround) {
+		if (event.keyCode === 38 && this.isOnGround && !this.knockbackState.active) {
 			this.jump();
 		}
 
@@ -51,6 +59,7 @@ class Character extends GameObject {
 	}
 
 	render() {
+		this.updateKnockbackStatus()
 		this.move();
 		this.verticalMovement();
 		this.updateDamagedState();
@@ -58,17 +67,28 @@ class Character extends GameObject {
 		return `<img class="character" src="${image_path}" style="bottom: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
 	}
 
+	updateKnockbackStatus() {
+		if (this.knockbackState.active && new Date().getTime() - this.knockbackState.timeStarted > this.knockbackState.duration) {
+			this.knockbackState.active = false
+		}
+	}
+
 	move() {
 		const moveSpeed = 15;
+		let newX = this.pos.x;
 		if (this.moving === 'right') {
-			let newX = this.pos.x + moveSpeed;
-			if (newX > 1200) newX = 1200;
-			this.pos.x = newX;
+			newX += moveSpeed;
 		} else if (this.moving === 'left') {
-			let newX = this.pos.x - moveSpeed;
-			if (newX < 0) newX = 0;
-			this.pos.x = newX;
+			newX -= moveSpeed;
+		} else if (this.knockbackState.active) {
+			if (this.knockbackState.direction === "right")
+				newX = this.pos.x + this.knockbackState.speed
+			else if (this.knockbackState.direction === "left")
+				newX = this.pos.x - this.knockbackState.speed
 		}
+		if (newX > 1200) newX = 1200;
+		if (newX < 0) newX = 0;
+		this.pos.x = newX;
 	}
 
 	fireProjectile(direction) {
@@ -108,7 +128,7 @@ class Character extends GameObject {
 		this.setCurrentHero(newIndex)
 	}
 
-	takeDamage(amount) {
+	takeDamage(amount, damageSource) {
 		if (!this.wasRecentlyDamaged()) {
 			this.health -= amount;
 			this.timeDamaged = new Date().getTime();
@@ -118,6 +138,21 @@ class Character extends GameObject {
 				hearts.innerHTML = remaining;
 			}
 		}
+
+		this.knockBackFrom(damageSource)
+	}
+
+	knockBackFrom(source) {
+		const knockbackDirection = source.x - this.centerPoint.x >= 0 ? "left" : "right"
+		this.knockbackState = {
+			active: true,
+			timeStarted: new Date().getTime(),
+			direction: knockbackDirection,
+			speed: 15,
+			duration: 600
+		}
+		this.moving = null
+		this.fallSpeed = -30;
 	}
 
 	updateDamagedState() {
