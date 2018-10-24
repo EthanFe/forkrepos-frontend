@@ -1,8 +1,9 @@
 class Character extends GameObject {
-	constructor(projectilesList, enemiesList) {
+	constructor(projectilesList, enemiesList, heroesData) {
 		super({ x: 500, y: 0, width: 240, height: 100, imageName: 'blue' });
 		this.projectilesList = projectilesList;
 		this.enemiesList = enemiesList;
+		this.heroesData = heroesData
 		this.keyMap = {
 			39: 'right', //{x: 1, y: 0}, //'right',
 			37: 'left' //{x: -1, y: 0}, //'left',
@@ -11,6 +12,8 @@ class Character extends GameObject {
 		};
 		this.fallSpeed = 0;
 		this.health = 100;
+
+		this.changeHero();
 
 		document.addEventListener('keydown', this.keyPressed.bind(this));
 		document.addEventListener('keyup', this.keyReleased.bind(this));
@@ -50,9 +53,7 @@ class Character extends GameObject {
 		this.move();
 		this.verticalMovement();
 		const image_path = `./images/${this.imageName}.png`;
-		return `<img class="character" src="${image_path}" style="bottom: ${
-			this.pos.y
-			}px; left: ${this.pos.x}px"></img>`;
+		return `<img class="character" src="${image_path}" style="bottom: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
 	}
 
 	move() {
@@ -93,16 +94,14 @@ class Character extends GameObject {
 	}
 
 	changeHero() {
-		const heroImageNames = heroes.map(function (hero) {
+		const heroImageNames = this.heroesData.map(function (hero) {
 			return hero.idle_image
 		})
 		const currentIndex = heroImageNames.indexOf(this.imageName)
-		console.log(heroImageNames, currentIndex)
-		if (currentIndex < heroImageNames.length - 1) {
-			this.imageName = heroImageNames[currentIndex + 1]
-		} else {
-			this.imageName = heroImageNames[0]
-		}
+		const newIndex = currentIndex < heroImageNames.length - 1 ? currentIndex + 1 : 0
+		this.imageName = heroImageNames[newIndex]
+		this.width = this.heroesData[newIndex].width
+		this.height = this.heroesData[newIndex].height
 	}
 
 	takeDamage(amount) {

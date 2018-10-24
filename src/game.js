@@ -1,11 +1,11 @@
 class Game {
-    constructor(villains) {
-        this.villains = villains
+    constructor(data) {
+        this.villains = data.villains
         this.projectiles = [];
         this.enemies = [];
 
         this.spawnNewEnemy()
-        this.chelsea = new Character(this.projectiles, this.enemies);
+        this.chelsea = new Character(this.projectiles, this.enemies, data.heroes);
 
         this.playMusic()
 
@@ -33,15 +33,15 @@ class Game {
 
         
 
-        // setTimeout(() => {
+        setTimeout(() => {
             // window.requestAnimationFrame(() => {
             //     for (let i=0;i<speedUpFactor;i++) {
             //         console.log("help")
             //         this.loop.bind(this)
             //     }
             // });
-        // }, 200);
-        window.requestAnimationFrame(this.loop.bind(this));
+            window.requestAnimationFrame(this.loop.bind(this));
+        }, 200);
     }
 
     renderComponents() {

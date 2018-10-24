@@ -5,8 +5,8 @@ class Enemy extends GameObject {
 		super({
 			x: x,
 			y: y,
-			width: 200,
-			height: 360,
+			width: villainData.width,
+			height: villainData.height,
 			imageName: villainData.idle_image
 		});
 		this.villainData = villainData
@@ -24,8 +24,7 @@ class Enemy extends GameObject {
 		this.updateDamagedState();
 		const imagePath = `./images/${this.imageName}.png`;
 		return `<img class="enemy" src="${imagePath}"
-						style="top: ${this.pos.y}px; left: ${this.pos.x}px;"></img>`;
-						// style="top: ${this.pos.y}px; left: ${this.pos.x}px; width: ${this.width}; height: ${this.height}px;"></img>`;
+						style="bottom: ${this.pos.y}px; left: ${this.pos.x}px; width: ${this.width}; height: ${this.height}px;"></img>`;
 
 	}
 
@@ -39,7 +38,7 @@ class Enemy extends GameObject {
 
 		this.wiggle()
 
-		// this.checkCollision([target]);
+		this.checkCollision([target]);
 	}
 
 	wiggle() {
