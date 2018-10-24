@@ -132,12 +132,12 @@ class Character extends GameObject {
 		if (!this.wasRecentlyDamaged()) {
 			this.health -= amount;
 			this.timeDamaged = new Date().getTime();
+			let hearts = document.getElementById('hearts')
+			let remaining = hearts.innerText.slice(2)
+			hearts.innerHTML = remaining;
 		}
 
 		this.knockBackFrom(damageSource)
-		// let hearts = document.getElementById('hearts')
-		// let remaining = hearts.innerText.slice(2)
-		// hearts.innerHTML = remaining;
 	}
 
 	knockBackFrom(source) {
