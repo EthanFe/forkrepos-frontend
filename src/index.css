@@ -43,8 +43,8 @@ code {
 }
 
 #kills {
-	float: right;
-	margin: 10px;
+	position: fixed;
+	right: 10px;
 }
 
 .stats {
@@ -55,3 +55,24 @@ code {
 	margin-top: 0px;
 	color: #F9A602;
 }
+<<<<<<< HEAD
+=======
+
+.enemy, .character, .projectile {
+	/* border: 1px solid red; */
+}
+
+nav {
+	position: absolute;
+	top: 0;
+}
+
+#leaderboards {
+	color: white;
+	font-family: 'Herculanum';
+	font-size: 100px;
+	position: fixed;
+	top: 300px;
+	left: 350px;
+}
+>>>>>>> 3235cc8a966e5984ec92041919e2cf3e7eb9c477
