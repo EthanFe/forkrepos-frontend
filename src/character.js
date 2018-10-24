@@ -113,8 +113,10 @@ class Character extends GameObject {
 			this.health -= amount;
 			this.timeDamaged = new Date().getTime();
 			let hearts = document.getElementById('hearts')
-			let remaining = hearts.innerText.slice(2)
-			hearts.innerHTML = remaining;
+			if (hearts) {
+				let remaining = hearts.innerText.slice(2)
+				hearts.innerHTML = remaining;
+			}
 		}
 	}
 
