@@ -12,6 +12,7 @@ class Character extends GameObject {
 		};
 		this.fallSpeed = 0;
 		this.health = 100;
+		this.damageFlashTime = 1000
 
 		this.changeHero();
 
@@ -105,8 +106,10 @@ class Character extends GameObject {
 	}
 
 	takeDamage(amount) {
-		this.health -= amount;
-		this.timeDamaged = new Date().getTime();
+		if (!this.wasRecentlyDamaged()) {
+			this.health -= amount;
+			this.timeDamaged = new Date().getTime();
+		}
 		// let hearts = document.getElementById('hearts')
 		// let remaining = hearts.innerText.slice(2)
 		// hearts.innerHTML = remaining;
@@ -114,15 +117,15 @@ class Character extends GameObject {
 
 	updateDamagedState() {
 		// dis is some lame-o hardcoding but hey w/e
-		if (
-			this.timeDamaged !== undefined &&
-			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
-		) {
-			this.imageName = this.villainData.hit_image;
-			console.log(this.imageName)
-		} else {
-			this.imageName = this.villainData.idle_image;
-		}
+		// if (this.wasRecentlyDamaged()) {
+		// 	this.imageName = this.villainData.hit_image;
+		// } else {
+		// 	this.imageName = this.villainData.idle_image;
+		// }
+	}
+
+	wasRecentlyDamaged() {
+		return this.timeDamaged !== undefined && new Date().getTime() - this.timeDamaged <= this.damageFlashTime
 	}
 
 	deleteable() {

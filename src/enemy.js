@@ -56,7 +56,6 @@ class Enemy extends GameObject {
 	}
 
 	onCollideWith(target) {
-		console.log("colliding with player")
 		this.collided = true
 		target.takeDamage(this.damage)
 	}
