@@ -107,11 +107,9 @@ class Character extends GameObject {
 	takeDamage(amount) {
 		this.health -= amount;
 		this.timeDamaged = new Date().getTime();
-		// let hearts = document.getElementsByClassName('lives stats')[0];
-		// let heartsArr = hearts.innerText.split(' ');
-		// heartsArr.pop();
-		// let heartString = heartsArr.join();
-		// hearts.innerHTML = heartString;
+		// let hearts = document.getElementById('hearts')
+		// let remaining = hearts.innerText.slice(2)
+		// hearts.innerHTML = remaining;
 	}
 
 	updateDamagedState() {
