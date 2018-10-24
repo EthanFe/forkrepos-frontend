@@ -43,8 +43,8 @@ code {
 }
 
 #kills {
-	float: right;
-	margin: 10px;
+	position: fixed;
+	right: 10px;
 }
 
 .stats {
@@ -58,4 +58,18 @@ code {
 
 .enemy, .character, .projectile {
 	/* border: 1px solid red; */
+}
+
+nav {
+	position: absolute;
+	top: 0;
+}
+
+#leaderboards {
+	color: white;
+	font-family: 'Herculanum';
+	font-size: 100px;
+	position: fixed;
+	top: 300px;
+	left: 350px;
 }
