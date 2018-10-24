@@ -75,8 +75,8 @@ class Game {
         }
 
         if (this.chelsea.deleteable()) {
-            document.getElementById('game-view').innerHTML = "<h1 style='margin-top: 0;'> FATALITY!</h1>"
-            document.getElementById('life-stats').innerHTML = ""
+            document.getElementById('game-view').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
+            document.getElementById('life-stats').innerHTML = "this will have leaderboards..."
         }
     }
 
