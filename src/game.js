@@ -26,6 +26,25 @@ class Game {
     }
 
     loop() {
+        const speedUpFactor = 1
+        for (let i=0;i<speedUpFactor;i++) {
+            this.renderComponents()
+        }
+
+        
+
+        // setTimeout(() => {
+            // window.requestAnimationFrame(() => {
+            //     for (let i=0;i<speedUpFactor;i++) {
+            //         console.log("help")
+            //         this.loop.bind(this)
+            //     }
+            // });
+        // }, 200);
+        window.requestAnimationFrame(this.loop.bind(this));
+    }
+
+    renderComponents() {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
@@ -48,8 +67,6 @@ class Game {
         if (this.chelsea.deleteable()) {
             document.getElementById('game-view').innerHTML = "<h1> FATALITY! </h1>"
         }
-
-        window.requestAnimationFrame(this.loop.bind(this));
     }
 
     spawnNewEnemy() {

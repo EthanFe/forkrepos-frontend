@@ -1,6 +1,6 @@
 class Character extends GameObject {
 	constructor(projectilesList, enemiesList) {
-		super({ x: 500, y: 0, width: 100, height: 100, imageName: 'blue' });
+		super({ x: 500, y: 0, width: 240, height: 100, imageName: 'blue' });
 		this.projectilesList = projectilesList;
 		this.enemiesList = enemiesList;
 		this.keyMap = {

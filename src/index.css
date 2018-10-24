@@ -37,10 +37,6 @@ code {
 	width: 200px;
 }
 
-.enemy {
-  position: absolute;
-}
-
 .lives {
 	float: left;
 	margin: 10px;
@@ -58,4 +54,8 @@ code {
 #stars {
 	margin-top: 0px;
 	color: #F9A602;
+}
+
+.enemy, .character, .projectile {
+	border: 1px solid red;
 }
