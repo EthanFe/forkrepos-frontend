@@ -3,6 +3,7 @@ class Game {
         this.villains = data.villains
         this.projectiles = [];
         this.enemies = [];
+        this.kills = 0
 
         this.spawnNewEnemy()
         this.chelsea = new Character(this.projectiles, this.enemies, data.heroes);
@@ -65,6 +66,7 @@ class Game {
             if (enemy.deleteable()) {
                 this.enemies.splice(this.enemies.indexOf(enemy), 1);
                 this.playFatality();
+                this.incrementKills()
                 this.spawnNewEnemy();
             } else {
                 document.getElementById('game-view').innerHTML += enemy.render();
@@ -78,15 +80,17 @@ class Game {
         }
     }
 
-    spawnNewEnemy() {
-        const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
-        this.enemies.push(new Enemy(enemyType));
+    incrementKills() {
         let killCount = document.getElementById('kill-count')
-        let count = parseInt(killCount.innerText)
-        killCount.innerText = parseInt(++count)
-        if (count % 5 === 0 && count > 0) {
+        killCount.innerText = parseInt(++this.kills)
+        if (this.kills % 5 === 0 && this.kills > 0) {
             let stars = document.getElementById('stars')
             stars.innerHTML += `<span>&#9733;</span>`
         }
+    }
+
+    spawnNewEnemy() {
+        const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
+        this.enemies.push(new Enemy(enemyType));
     }
 }

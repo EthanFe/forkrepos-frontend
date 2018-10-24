@@ -57,5 +57,5 @@ code {
 }
 
 .enemy, .character, .projectile {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 }

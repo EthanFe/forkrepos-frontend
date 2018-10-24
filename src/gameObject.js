@@ -26,16 +26,4 @@ class GameObject {
     return (xDistance <= ((target.width + this.width) / 2) &&
             yDistance <= ((target.height + this.height) / 2))
   }
-
-	// isColliding(target) {
-	// 	const collisionPos = {x: this.pos.x + this.width / 2, y: this.pos.y + this.height / 2}
-	// 	const targetCollisionPos = {x: target.pos.x + target.width / 2, y: target.pos.y + target.height / 2}
-	// 	const xDistance = Math.abs(targetCollisionPos.x - collisionPos.x)
-  //   const yDistance = Math.abs(targetCollisionPos.y - collisionPos.y)
-  //   console.log(xDistance, (target.width + this.width) / 2)
-  //   // console.log(xDistance <= (target.width + this.width) / 2,
-  //               // yDistance <= (target.height + this.height) / 2)
-	// 	return (xDistance <= (target.width + this.width) / 2 &&
-	// 					yDistance <= (target.height + this.height) / 2)
-	// }
 }
