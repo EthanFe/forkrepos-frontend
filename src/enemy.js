@@ -38,7 +38,7 @@ class Enemy extends GameObject {
 
 		this.wiggle()
 
-		// this.checkCollision([target]);
+		this.checkCollision([target]);
 	}
 
 	wiggle() {
