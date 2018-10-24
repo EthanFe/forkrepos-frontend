@@ -4,6 +4,8 @@ class Character extends GameObject {
 		this.projectilesList = projectilesList;
 		this.enemiesList = enemiesList;
 		this.heroesData = heroesData
+		this.setCurrentHero(0)
+
 		this.keyMap = {
 			39: 'right', //{x: 1, y: 0}, //'right',
 			37: 'left' //{x: -1, y: 0}, //'left',
@@ -13,8 +15,6 @@ class Character extends GameObject {
 		this.fallSpeed = 0;
 		this.health = 100;
 		this.damageFlashTime = 1000
-
-		this.changeHero();
 
 		document.addEventListener('keydown', this.keyPressed.bind(this));
 		document.addEventListener('keyup', this.keyReleased.bind(this));
@@ -41,7 +41,7 @@ class Character extends GameObject {
 		}
 
 		if (event.keyCode === 72) {
-			this.changeHero()
+			this.cycleHero()
 		}
 	}
 
@@ -53,6 +53,7 @@ class Character extends GameObject {
 	render() {
 		this.move();
 		this.verticalMovement();
+		this.updateDamagedState();
 		const image_path = `./images/${this.imageName}.png`;
 		return `<img class="character" src="${image_path}" style="bottom: ${this.pos.y}px; left: ${this.pos.x}px"></img>`;
 	}
@@ -94,15 +95,17 @@ class Character extends GameObject {
 		}
 	}
 
-	changeHero() {
-		const heroImageNames = this.heroesData.map(function (hero) {
-			return hero.idle_image
-		})
-		const currentIndex = heroImageNames.indexOf(this.imageName)
-		const newIndex = currentIndex < heroImageNames.length - 1 ? currentIndex + 1 : 0
-		this.imageName = heroImageNames[newIndex]
-		this.width = this.heroesData[newIndex].width
-		this.height = this.heroesData[newIndex].height
+	setCurrentHero(index) {
+		this.currentHeroIndex = index
+		this.idleImage = this.heroesData[index].idle_image
+		this.hitImage = this.heroesData[index].hit_image
+		this.width = this.heroesData[index].width
+		this.height = this.heroesData[index].height
+	}
+
+	cycleHero() {
+		const newIndex = this.currentHeroIndex < this.heroesData.length - 1 ? this.currentHeroIndex + 1 : 0
+		this.setCurrentHero(newIndex)
 	}
 
 	takeDamage(amount) {
@@ -117,11 +120,11 @@ class Character extends GameObject {
 
 	updateDamagedState() {
 		// dis is some lame-o hardcoding but hey w/e
-		// if (this.wasRecentlyDamaged()) {
-		// 	this.imageName = this.villainData.hit_image;
-		// } else {
-		// 	this.imageName = this.villainData.idle_image;
-		// }
+		if (this.wasRecentlyDamaged()) {
+			this.imageName = this.hitImage
+		} else {
+			this.imageName = this.idleImage
+		}
 	}
 
 	wasRecentlyDamaged() {
