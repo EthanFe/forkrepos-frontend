@@ -1,11 +1,11 @@
 class Game {
-    constructor(villains) {
-        this.villains = villains
+    constructor(data) {
+        this.villains = data.villains
         this.projectiles = [];
         this.enemies = [];
 
         this.spawnNewEnemy()
-        this.chelsea = new Character(this.projectiles, this.enemies);
+        this.chelsea = new Character(this.projectiles, this.enemies, data.heroes);
 
         this.playMusic()
 
@@ -26,6 +26,25 @@ class Game {
     }
 
     loop() {
+        const speedUpFactor = 1
+        for (let i=0;i<speedUpFactor;i++) {
+            this.renderComponents()
+        }
+
+        
+
+        setTimeout(() => {
+            // window.requestAnimationFrame(() => {
+            //     for (let i=0;i<speedUpFactor;i++) {
+            //         console.log("help")
+            //         this.loop.bind(this)
+            //     }
+            // });
+            window.requestAnimationFrame(this.loop.bind(this));
+        }, 200);
+    }
+
+    renderComponents() {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
@@ -49,8 +68,6 @@ class Game {
             document.getElementById('game-view').innerHTML = "leaderboard placeholder..."
             document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;'> FATALITY!</h1>"
         }
-
-        window.requestAnimationFrame(this.loop.bind(this));
     }
 
     spawnNewEnemy() {

@@ -5,9 +5,9 @@ class Enemy extends GameObject {
 		super({
 			x: x,
 			y: y,
-			width: 200,
-			height: 360,
-			imageName: "i dont even care"
+			width: villainData.width,
+			height: villainData.height,
+			imageName: villainData.idle_image
 		});
 		this.villainData = villainData
 		this.health = 40;
@@ -23,9 +23,9 @@ class Enemy extends GameObject {
 	render() {
 		this.updateDamagedState();
 		const imagePath = `./images/${this.imageName}.png`;
-		return `<img class="enemy" src="${imagePath}" style="top: ${
-			this.pos.y
-			}px; left: ${this.pos.x}px"></img>`;
+		return `<img class="enemy" src="${imagePath}"
+						style="bottom: ${this.pos.y}px; left: ${this.pos.x}px; width: ${this.width}; height: ${this.height}px;"></img>`;
+
 	}
 
 	attack(target) {
@@ -36,8 +36,12 @@ class Enemy extends GameObject {
 			this.pos.x = this.pos.x - moveSpeed;
 		}
 
-		this.checkCollision(target);
+		this.wiggle()
 
+		this.checkCollision([target]);
+	}
+
+	wiggle() {
 		const wiggleSpeed = 1.2;
 		if (new Date().getTime() - this.timeLastWiggled > this.wiggleTime) {
 			this.wiggleDirection =
@@ -51,22 +55,8 @@ class Enemy extends GameObject {
 		}
 	}
 
-	checkCollision(target) {
-		if (this.isColliding(target)) {
-			this.onCollideWith(target)
-		}
-	}
-
-	isColliding(target) {
-		const collisionPos = { x: this.pos.x + this.width / 2, y: this.pos.y + this.height / 2 }
-		const targetCollisionPos = { x: target.pos.x + target.width / 2, y: target.pos.y + target.height / 2 }
-		const xDistance = Math.abs(targetCollisionPos.x - collisionPos.x)
-		const yDistance = Math.abs(targetCollisionPos.y - collisionPos.y)
-		return (xDistance <= (target.width + this.width) / 2 &&
-			yDistance <= this.pos.y - 60)
-	}
-
 	onCollideWith(target) {
+		console.log("colliding with player")
 		this.collided = true
 		target.takeDamage(this.damage)
 	}
@@ -83,7 +73,6 @@ class Enemy extends GameObject {
 			new Date().getTime() - this.timeDamaged <= this.damageFlashTime
 		) {
 			this.imageName = this.villainData.hit_image;
-			console.log(this.imageName)
 		} else {
 			this.imageName = this.villainData.idle_image;
 		}
