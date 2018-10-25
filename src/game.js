@@ -109,11 +109,13 @@ class Game {
         document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
         let player = prompt("What's yo name?", "Tyranny");
         document.getElementById('game-view').innerHTML = `
-        <p class='leaderboards'><strong>${player} Wins!</strong></p>
-        <p class="leaderboards">Stats:</p>
-        <p class='leaderboards'>Cookies Fired: ${this.score.cookiesFired}</p>
-        <p class='leaderboards'>Cookies Hit: ${this.score.cookiesHit}</p>
-        <p class='leaderboards'>Cookie Accuracy: ${this.score.cookiesHit / this.score.cookiesFired}%</p>
+        <div id='leaderboards'>
+        <p><strong>${player} Wins!</strong></p>
+        <p>Stats:</p>
+        <p>Cookies Fired: ${this.score.cookiesFired}</p>
+        <p>Cookies Hit: ${this.score.cookiesHit}</p>
+        <p>Cookie Accuracy: ${(this.score.cookiesHit / this.score.cookiesFired) * 100}%</p>
+        </div>
         `
 
         this.submitScores()

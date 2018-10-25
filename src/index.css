@@ -61,11 +61,10 @@ nav {
 	top: 0;
 }
 
-.leaderboards {
+#leaderboards {
 	color: white;
 	font-family: 'Herculanum';
 	font-size: 40px;
 	margin-top: 300px;
-	position: fixed;
 	left: 350px;
 }
