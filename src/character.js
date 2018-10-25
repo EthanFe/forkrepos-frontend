@@ -1,9 +1,10 @@
 class Character extends GameObject {
-	constructor(projectilesList, enemiesList, heroesData) {
+	constructor(projectilesList, enemiesList, heroesData, score) {
 		super({ x: 500, y: 0, width: 240, height: 100, imageName: 'blue' });
 		this.projectilesList = projectilesList;
 		this.enemiesList = enemiesList;
 		this.heroesData = heroesData
+		this.score = score
 		this.setCurrentHero(0)
 
 		this.knockbackState = {
@@ -97,9 +98,8 @@ class Character extends GameObject {
 	}
 
 	fireProjectile(direction) {
-		this.projectilesList.push(
-			new Projectile(this.pos, direction, this.enemiesList)
-		);
+		this.projectilesList.push(new Projectile(this.pos, direction, this.enemiesList));
+		this.score.cookiesFired++
 	}
 
 	isOnGround() {
