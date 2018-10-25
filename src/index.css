@@ -1,6 +1,9 @@
 html {
 	background: url('./images/background.png');
 	background-attachment: fixed;
+	/* background-position: center top; */
+	/* background-size: 100% auto; */
+	/* background-repeat: repeat-x; */
 	background-size: contain;
 }
 
@@ -58,11 +61,11 @@ nav {
 	top: 0;
 }
 
-#leaderboards {
+.leaderboards {
 	color: white;
 	font-family: 'Herculanum';
-	font-size: 100px;
+	font-size: 40px;
+	margin-top: 300px;
 	position: fixed;
-	top: 200px;
-	left: 250px;
+	left: 350px;
 }

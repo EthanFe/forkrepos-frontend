@@ -42,7 +42,7 @@ class Game {
     loop() {
         if (this.game_ended)
             return
-        
+
         if (this.speedUpFactor > 1) {
             for (let i = 0; i < this.speedUpFactor; i++) {
                 this.renderComponents()
@@ -91,7 +91,8 @@ class Game {
 
     incrementKills() {
         let killCount = document.getElementById('kill-count')
-        killCount.innerText = parseInt(++this.score.kills)
+        ++this.score.kills
+        killCount.innerText = this.score.kills
         if (this.score.kills % 5 === 0 && this.score.kills > 0) {
             let stars = document.getElementById('stars')
             stars.innerHTML += `<span>&#9733;</span>`
@@ -107,7 +108,13 @@ class Game {
         this.game_ended = true
         document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
         let player = prompt("What's yo name?", "Tyranny");
-        document.getElementById('game-view').innerHTML = `<p id='leaderboards'><strong>${player} Wins!</strong></p>`
+        document.getElementById('game-view').innerHTML = `
+        <p class='leaderboards'><strong>${player} Wins!</strong></p>
+        <p class="leaderboards">Stats:</p>
+        <p class='leaderboards'>Cookies Fired: ${this.score.cookiesFired}</p>
+        <p class='leaderboards'>Cookies Hit: ${this.score.cookiesHit}</p>
+        <p class='leaderboards'>Cookie Accuracy: ${this.score.cookiesHit / this.score.cookiesFired}%</p>
+        `
 
         this.submitScores()
     }
@@ -115,11 +122,11 @@ class Game {
     submitScores() {
         fetch("http://localhost:3000/submit_score", {
             method: 'POST',
-            body: JSON.stringify({username: "test", score: this.score}),
-            headers:{
-              'Content-Type': 'application/json'
+            body: JSON.stringify({ username: "test", kills: this.score.kills, cookiesFired: this.score.cookiesFired, cookiesHit: this.score.cookiesHit }),
+            headers: {
+                'Content-Type': 'application/json'
             }
-          })
-          .then(() => console.log("korean bbq"))
+        })
+            .then(() => console.log("korean bbq"))
     }
 }
