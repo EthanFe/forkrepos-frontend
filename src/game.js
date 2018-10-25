@@ -42,7 +42,7 @@ class Game {
     loop() {
         if (this.game_ended)
             return
-        
+
         if (this.speedUpFactor > 1) {
             for (let i = 0; i < this.speedUpFactor; i++) {
                 this.renderComponents()
@@ -115,11 +115,11 @@ class Game {
     submitScores() {
         fetch("http://localhost:3000/submit_score", {
             method: 'POST',
-            body: JSON.stringify({username: "test", score: this.score}),
-            headers:{
-              'Content-Type': 'application/json'
+            body: JSON.stringify({ username: "test", score: this.score }),
+            headers: {
+                'Content-Type': 'application/json'
             }
-          })
-          .then(() => console.log("korean bbq"))
+        })
+            .then(() => console.log("korean bbq"))
     }
 }
