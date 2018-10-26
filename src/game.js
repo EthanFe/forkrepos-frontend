@@ -10,7 +10,8 @@ class Game {
         }
         this.game_ended = false
 
-        this.spawnNewEnemy()
+        this.timeLastEnemySpawned = 0
+        this.timeBetweenEnemySpawns = 3000
         this.chelsea = new Character(this.projectiles, this.enemies, data.heroes, this.score);
 
         this.playMusic()
@@ -42,6 +43,14 @@ class Game {
     loop() {
         if (this.game_ended)
             return
+        
+        if (new Date().getTime() - this.timeLastEnemySpawned >= this.timeBetweenEnemySpawns) {
+            console.log(this.timeBetweenEnemySpawns)
+            this.spawnNewEnemy()
+            this.timeLastEnemySpawned = new Date().getTime()
+            if (this.timeBetweenEnemySpawns >= 200)
+                this.timeBetweenEnemySpawns -= 100
+        }
 
         if (this.speedUpFactor > 1) {
             for (let i = 0; i < this.speedUpFactor; i++) {
@@ -78,7 +87,6 @@ class Game {
                 this.enemies.splice(this.enemies.indexOf(enemy), 1);
                 this.playFatality();
                 this.incrementKills()
-                this.spawnNewEnemy();
             } else {
                 document.getElementById('game-view').innerHTML += enemy.render();
                 enemy.attack(this.chelsea);
@@ -101,15 +109,8 @@ class Game {
     }
 
     spawnNewEnemy() {
-        if (this.score.kills === 0) {
-            setTimeout(function () {
-                const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
-                this.enemies.push(new Enemy(enemyType));
-            }.bind(this), 5000);
-        } else {
-            const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
-            this.enemies.push(new Enemy(enemyType));
-        }
+        const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
+        this.enemies.push(new Enemy(enemyType));
     }
 
     endGame() {
