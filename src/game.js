@@ -65,7 +65,7 @@ class Game {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
-            if (projectile.deleteable()) {
+            if (projectile.collided) {
                 this.projectiles.splice(this.projectiles.indexOf(projectile), 1);
                 this.score.cookiesHit++
             }
