@@ -5,7 +5,7 @@ class Projectile extends GameObject {
     this.direction = direction;
     this.collisionTargets = collisionTargets;
     this.collided = false;
-    this.damage = 10;
+    this.damage = 15;
   }
 
   render() {

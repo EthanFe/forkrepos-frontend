@@ -8,6 +8,7 @@ class Game {
       cookiesHit: 0,
       kills: 0
     };
+    this.gameStartTime = new Date().getTime()
     this.game_ended = false;
 
     this.timeLastEnemySpawned = 0
@@ -47,8 +48,15 @@ class Game {
       console.log(this.timeBetweenEnemySpawns)
       this.spawnNewEnemy()
       this.timeLastEnemySpawned = new Date().getTime()
+<<<<<<< HEAD
       if (this.timeBetweenEnemySpawns >= 200)
         this.timeBetweenEnemySpawns -= 100
+=======
+      if (this.timeBetweenEnemySpawns >= 750)
+        this.timeBetweenEnemySpawns -= 200
+      else
+        this.timeBetweenEnemySpawns = 750
+>>>>>>> 6ceb91dd9d97bb5ea773df4f44732e9c921201f8
     }
 
     if (this.speedUpFactor > 1) {
@@ -127,7 +135,8 @@ class Game {
         username: username,
         kills: this.score.kills,
         cookiesFired: this.score.cookiesFired,
-        cookiesHit: this.score.cookiesHit
+        cookiesHit: this.score.cookiesHit,
+        time: new Date().getTime() - this.gameStartTime
       }),
       headers: {
         "Content-Type": "application/json"
