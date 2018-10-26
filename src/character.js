@@ -24,7 +24,7 @@ class Character extends GameObject {
     this.fallSpeed = 0;
     this.health = 100;
     this.damageFlashTime = 1000;
-    this.cookieCount = 8;
+    this.cookieCount = 30;
 
     document.addEventListener("keydown", this.keyPressed.bind(this));
     document.addEventListener("keyup", this.keyReleased.bind(this));
@@ -56,22 +56,24 @@ class Character extends GameObject {
       this.jump();
     }
 
-    this.checkReload(event.keyCode)
+    if (event.keyCode === 32) this.reload();
+
+    this.checkFire(event.keyCode);
 
     if (event.keyCode === 72) {
       this.cycleHero();
     }
   }
 
-  checkReload(keyPressed) {
-    console.log(keyPressed)
-    let fireDirection = null
+  checkFire(keyPressed) {
+    console.log(keyPressed);
+    let fireDirection = null;
     if (keyPressed === 90 && this.cookieCount > 0) {
-      fireDirection = "left"
+      fireDirection = "left";
     } else if (keyPressed === 88 && this.cookieCount > 0) {
-      fireDirection = "right"
+      fireDirection = "right";
     }
-    
+
     if (fireDirection !== null) {
       this.fireProjectile(fireDirection);
       this.cookieCount--;
@@ -81,7 +83,7 @@ class Character extends GameObject {
 
   reload() {
     this.playReloadEffect();
-    setTimeout(() => (this.cookieCount += 8), 2000);
+    setTimeout(() => (this.cookieCount = 30), 1300);
   }
 
   keyReleased(event) {
