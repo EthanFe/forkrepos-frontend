@@ -81,4 +81,16 @@ class Enemy extends GameObject {
 		return this.health <= 0;
 	}
 
+	knockbackFrom(source) {
+		const knockbackDistance = 50
+		const knockbackDirection = source.x - this.centerPoint.x >= 0 ? "left" : "right"
+		let newX
+		if (knockbackDirection === "right")
+			newX = this.pos.x + knockbackDistance
+		else if (knockbackDirection === "left")
+			newX = this.pos.x - knockbackDistance
+		if (newX > 1200) newX = 1200;
+		if (newX < 0) newX = 0;
+		this.pos.x = newX;
+	}
 }

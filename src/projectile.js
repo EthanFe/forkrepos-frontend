@@ -32,5 +32,6 @@ class Projectile extends GameObject {
 	onCollideWith(target) {
 		this.collided = true
 		target.takeDamage(this.damage)
+		target.knockbackFrom(this.centerPoint)
 	}
 }
