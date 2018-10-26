@@ -100,8 +100,15 @@ class Game {
     }
 
     spawnNewEnemy() {
-        const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
-        this.enemies.push(new Enemy(enemyType));
+        if (this.score.kills === 0) {
+            setTimeout(function () {
+                const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
+                this.enemies.push(new Enemy(enemyType));
+            }.bind(this), 5000);
+        } else {
+            const enemyType = this.villains[Math.floor(Math.random() * this.villains.length)];
+            this.enemies.push(new Enemy(enemyType));
+        }
     }
 
     endGame() {
