@@ -11,7 +11,7 @@ class Game {
     this.gameStartTime = new Date().getTime();
     this.game_ended = false;
 
-    this.timeLastEnemySpawned = 0;
+    this.timeLastEnemySpawned = this.gameStartTime;
     this.timeBetweenEnemySpawns = 5000;
     this.chelsea = new Character(
       this.projectiles,
@@ -193,8 +193,8 @@ class Game {
         <p>&nbsp;&nbsp;&nbsp; Cookies Fired: ${this.score.cookiesFired}</p>
         <p>&nbsp;&nbsp;&nbsp; Cookies Hit: ${this.score.cookiesHit}</p>
         <p>&nbsp;&nbsp;&nbsp; Cookie Accuracy: ${Math.floor(
-          (this.score.cookiesHit / this.score.cookiesFired) * 100
-        )}%</p>
+        (this.score.cookiesHit / this.score.cookiesFired) * 100
+      )}%</p>
         </div>
         `;
   }
