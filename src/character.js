@@ -182,9 +182,9 @@ class Character extends GameObject {
         let remaining = hearts.innerText.slice(2);
         hearts.innerHTML = remaining;
       }
+      this.knockBackFrom(damageSource);
     }
 
-    this.knockBackFrom(damageSource);
   }
 
   knockBackFrom(source) {
