@@ -18,10 +18,10 @@ class Game {
 
     this.speedUpFactor = 1
     document.addEventListener("keydown", (event) => {
-        if (event.keyCode == "189")
-            this.speedUpFactor *= 0.5
-        else if (event.keyCode == "187")
-            this.speedUpFactor *= 2
+      if (event.keyCode == "189")
+        this.speedUpFactor *= 0.5
+      else if (event.keyCode == "187")
+        this.speedUpFactor *= 2
     })
 
     // start rendering n stuff
@@ -44,11 +44,11 @@ class Game {
     if (this.game_ended) return;
 
     if (new Date().getTime() - this.timeLastEnemySpawned >= this.timeBetweenEnemySpawns) {
-        console.log(this.timeBetweenEnemySpawns)
-        this.spawnNewEnemy()
-        this.timeLastEnemySpawned = new Date().getTime()
-        if (this.timeBetweenEnemySpawns >= 200)
-            this.timeBetweenEnemySpawns -= 100
+      console.log(this.timeBetweenEnemySpawns)
+      this.spawnNewEnemy()
+      this.timeLastEnemySpawned = new Date().getTime()
+      if (this.timeBetweenEnemySpawns >= 200)
+        this.timeBetweenEnemySpawns -= 100
     }
 
     if (this.speedUpFactor > 1) {
@@ -81,18 +81,18 @@ class Game {
     }
 
     for (const enemy of this.enemies) {
-        if (enemy.deleteable()) {
-            this.enemies.splice(this.enemies.indexOf(enemy), 1);
-            this.playFatality();
-            this.incrementKills()
-        } else {
-            document.getElementById('game-view').innerHTML += enemy.render();
-            enemy.attack(this.chelsea);
-        }
+      if (enemy.deleteable()) {
+        this.enemies.splice(this.enemies.indexOf(enemy), 1);
+        this.playFatality();
+        this.incrementKills()
+      } else {
+        document.getElementById('game-view').innerHTML += enemy.render();
+        enemy.attack(this.chelsea);
+      }
     }
 
     if (this.chelsea.deleteable()) {
-        this.endGame()
+      this.endGame()
     }
   }
 
@@ -116,17 +116,6 @@ class Game {
     document.getElementById("life-stats").innerHTML =
       "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>";
     let username = prompt("What's yo name?", "Tyranny");
-    document.getElementById("game-view").innerHTML = `
-        <div id='leaderboards'>
-        <h2><strong>${username} Wins!</strong></h2>
-        <h3><u>Stats:</u></h3>
-        <p>&nbsp;&nbsp;&nbsp; Cookies Fired: ${this.score.cookiesFired}</p>
-        <p>&nbsp;&nbsp;&nbsp; Cookies Hit: ${this.score.cookiesHit}</p>
-        <p>&nbsp;&nbsp;&nbsp; Cookie Accuracy: ${Math.floor(
-          (this.score.cookiesHit / this.score.cookiesFired) * 100
-        )}%</p>
-        </div>
-        `;
 
     this.submitScores(username);
   }
@@ -187,5 +176,15 @@ class Game {
       document.getElementById("game-view")
     );
     chart.draw(data, options);
+    document.querySelector("nav").innerHTML = `
+        <div id='stats'>
+        <h2><u>Stats:</u></h2>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Fired: ${this.score.cookiesFired}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Hit: ${this.score.cookiesHit}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookie Accuracy: ${Math.floor(
+        (this.score.cookiesHit / this.score.cookiesFired) * 100
+      )}%</p>
+        </div>
+        `;
   }
 }

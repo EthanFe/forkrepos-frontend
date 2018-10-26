@@ -61,14 +61,9 @@ nav {
 	top: 0;
 }
 
-#leaderboards {
+#stats {
 	color: white;
 	font-family: 'Herculanum';
 	font-size: 40px;
-	margin: 240px 0 0 450px;
-}
-
-.stats:before {
-	color: #f05d21;
-	font-size: 100%;
+	margin: 220px 0 0 450px;
 }
