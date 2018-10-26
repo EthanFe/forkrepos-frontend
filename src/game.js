@@ -118,11 +118,11 @@ class Game {
         let player = prompt("What's yo name?", "Tyranny");
         document.getElementById('game-view').innerHTML = `
         <div id='leaderboards'>
-        <p><strong>${player} Wins!</strong></p>
-        <p>Stats:</p>
-        <p>Cookies Fired: ${this.score.cookiesFired}</p>
-        <p>Cookies Hit: ${this.score.cookiesHit}</p>
-        <p>Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
+        <h2><strong>${player} Wins!</strong></h2>
+        <h3><u>Stats:</u></h3>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Fired: ${this.score.cookiesFired}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Hit: ${this.score.cookiesHit}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
         </div>
         `
 
