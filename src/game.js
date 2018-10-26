@@ -121,7 +121,7 @@ class Game {
         <p>Stats:</p>
         <p>Cookies Fired: ${this.score.cookiesFired}</p>
         <p>Cookies Hit: ${this.score.cookiesHit}</p>
-        <p>Cookie Accuracy: ${(this.score.cookiesHit / this.score.cookiesFired) * 100}%</p>
+        <p>Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
         </div>
         `
 
