@@ -67,3 +67,8 @@ nav {
 	font-size: 40px;
 	margin: 240px 0 0 450px;
 }
+
+.stats:before {
+	color: #f05d21;
+	font-size: 100%;
+}
