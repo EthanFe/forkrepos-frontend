@@ -11,7 +11,7 @@ class Game {
     this.game_ended = false;
 
     this.timeLastEnemySpawned = 0
-    this.timeBetweenEnemySpawns = 3000
+    this.timeBetweenEnemySpawns = 5000
     this.chelsea = new Character(this.projectiles, this.enemies, data.heroes, this.score);
 
     this.playMusic();
