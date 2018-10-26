@@ -56,20 +56,26 @@ class Character extends GameObject {
       this.jump();
     }
 
-    if (event.keyCode === 90 && this.cookieCount > 0) {
-      this.fireProjectile("left");
-      this.cookieCount--;
-      console.log(this.cookieCount);
-      if (this.cookieCount === 0) this.reload();
-    } else if (event.keyCode === 88 && this.cookieCount > 0) {
-      this.fireProjectile("right");
-      this.cookieCount--;
-      console.log(this.cookieCount);
-      if (this.cookieCount === 0) this.reload();
-    }
+    this.checkReload(event.keyCode)
 
     if (event.keyCode === 72) {
       this.cycleHero();
+    }
+  }
+
+  checkReload(keyPressed) {
+    console.log(keyPressed)
+    let fireDirection = null
+    if (keyPressed === 90 && this.cookieCount > 0) {
+      fireDirection = "left"
+    } else if (keyPressed === 88 && this.cookieCount > 0) {
+      fireDirection = "right"
+    }
+    
+    if (fireDirection !== null) {
+      this.fireProjectile(fireDirection);
+      this.cookieCount--;
+      if (this.cookieCount === 0) this.reload();
     }
   }
 
