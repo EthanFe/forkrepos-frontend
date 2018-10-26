@@ -22,7 +22,7 @@ class Character extends GameObject {
 			// 38: {x: 0, y: -1}, //'down'
 		};
 		this.fallSpeed = 0;
-		this.health = 20;
+		this.health = 100;
 		this.damageFlashTime = 1000
 
 		document.addEventListener('keydown', this.keyPressed.bind(this));

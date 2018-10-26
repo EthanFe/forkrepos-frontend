@@ -114,23 +114,22 @@ class Game {
 
     endGame() {
         this.game_ended = true
-        // document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
-        // let player = prompt("What's yo name?", "Tyranny");
-        // document.getElementById('game-view').innerHTML = `
-        // <div id='leaderboards'>
-        // <p><strong>${player} Wins!</strong></p>
-        // <p>Stats:</p>
-        // <p>Cookies Fired: ${this.score.cookiesFired}</p>
-        // <p>Cookies Hit: ${this.score.cookiesHit}</p>
-        // <p>Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
-        // </div>
-        // `
+        document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
+        let username = prompt("What's yo name?", "Tyranny");
+        document.getElementById('game-view').innerHTML = `
+        <div id='leaderboards'>
+        <h2><strong>${username} Wins!</strong></h2>
+        <h3><u>Stats:</u></h3>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Fired: ${this.score.cookiesFired}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookies Hit: ${this.score.cookiesHit}</p>
+        <p>&nbsp;&nbsp;&nbsp; Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
+        </div>
+        `
 
-        this.submitScores()
+        this.submitScores(username)
     }
 
-    submitScores() {
-        let username = prompt("What's yo name?", "Tyranny");
+    submitScores(username) {
         fetch("http://localhost:3000/submit_score", {
             method: 'POST',
             body: JSON.stringify({ username: username, kills: this.score.kills, cookiesFired: this.score.cookiesFired, cookiesHit: this.score.cookiesHit }),
