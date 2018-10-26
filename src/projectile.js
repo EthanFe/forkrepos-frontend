@@ -1,6 +1,7 @@
 class Projectile extends GameObject {
   constructor(pos, direction, collisionTargets) {
-    super({ x: pos.x, y: pos.y, width: 80, height: 72, imageName: "cookie" });
+    // super({ x: pos.x, y: pos.y, width: 80, height: 72, imageName: "cookie" })
+    super({ x: pos.x, y: pos.y, width: 62, height: 90, imageName: "pina" });
     this.direction = direction;
     this.collisionTargets = collisionTargets;
     this.collided = false;
@@ -11,7 +12,7 @@ class Projectile extends GameObject {
     this.move();
     const image_path = `./images/${this.imageName}.png`;
     return `<img class="projectile" src="${image_path}" style="bottom: ${this
-      .pos.y + 50}px; left: ${this.pos.x}px"></img>`;
+      .pos.y + 100}px; left: ${this.pos.x}px"></img>`;
   }
 
   move() {
@@ -30,5 +31,6 @@ class Projectile extends GameObject {
   onCollideWith(target) {
     this.collided = true;
     target.takeDamage(this.damage);
+    target.knockbackFrom(this.centerPoint);
   }
 }
