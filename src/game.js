@@ -65,9 +65,10 @@ class Game {
         document.getElementById('game-view').innerHTML = this.chelsea.render();
 
         for (const projectile of this.projectiles) {
-            if (projectile.collided) {
+            if (projectile.deleteable()) {
+                if (projectile.collided)
+                    this.score.cookiesHit++
                 this.projectiles.splice(this.projectiles.indexOf(projectile), 1);
-                this.score.cookiesHit++
             }
             else document.getElementById('game-view').innerHTML += projectile.render();
         }
