@@ -77,13 +77,17 @@ class Character extends GameObject {
     if (fireDirection !== null) {
       this.fireProjectile(fireDirection);
       this.cookieCount--;
+      this.updateCookieCounter();
       if (this.cookieCount === 0) this.reload();
     }
   }
 
   reload() {
     this.playReloadEffect();
-    setTimeout(() => (this.cookieCount = 30), 1300);
+    setTimeout(() => {
+      this.cookieCount = 30;
+      this.updateCookieCounter();
+    }, 1300);
   }
 
   keyReleased(event) {
@@ -138,6 +142,12 @@ class Character extends GameObject {
     this.score.cookiesFired++;
   }
 
+  updateCookieCounter() {
+    document.querySelector("footer").innerText = `Cookie Counter: ${
+      this.cookieCount
+    }`;
+  }
+
   isOnGround() {
     return this.pos.y <= 0;
   }
@@ -184,7 +194,6 @@ class Character extends GameObject {
       }
       this.knockBackFrom(damageSource);
     }
-
   }
 
   knockBackFrom(source) {

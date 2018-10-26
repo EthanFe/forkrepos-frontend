@@ -1,74 +1,80 @@
 html {
-	background: url('./images/background.png');
-	background-attachment: fixed;
-	/* background-position: center top; */
-	/* background-size: 100% auto; */
-	/* background-repeat: repeat-x; */
-	background-size: contain;
+  background: url("./images/background.png");
+  background-attachment: fixed;
+  /* background-position: center top; */
+  /* background-size: 100% auto; */
+  /* background-repeat: repeat-x; */
+  background-size: contain;
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-family: 'Shojumaru', cursive;
-	font-size: 54px;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Shojumaru", cursive;
+  font-size: 54px;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .character {
-	position: absolute;
-	width: 240px;
-	/* height: 240px; */
+  position: absolute;
+  width: 240px;
+  /* height: 240px; */
 }
 
 .projectile {
-	position: absolute;
-	width: 80px;
+  position: absolute;
+  width: 80px;
 }
 
 .enemy {
-	position: absolute;
-	width: 200px;
+  position: absolute;
+  width: 200px;
 }
 
 #life-stats {
-	float: left;
-	margin: 10px;
+  float: left;
+  margin: 10px;
 }
 
 #kills {
-	position: fixed;
-	right: 10px;
+  position: fixed;
+  right: 10px;
 }
 
 .stats {
-	color: #e60000;
+  color: #e60000;
 }
 
 #stars {
-	margin-top: 0px;
-	color: #F9A602;
+  margin-top: 0px;
+  color: #f9a602;
 }
 
 nav {
-	position: absolute;
-	top: 0;
+  position: absolute;
+  top: 0;
 }
 
 #leaderboards {
-	color: white;
-	font-family: 'Herculanum';
-	font-size: 40px;
-	margin: 240px 0 0 450px;
+  color: whitesmoke;
+  font-family: "Herculanum";
+  font-size: 40px;
+  margin: 240px 0 0 450px;
 }
 
 .stats:before {
-	color: #f05d21;
-	font-size: 100%;
+  color: #f05d21;
+  font-size: 100%;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  color: whitesmoke;
 }
