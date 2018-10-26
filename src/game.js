@@ -114,29 +114,71 @@ class Game {
 
     endGame() {
         this.game_ended = true
-        document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
-        let player = prompt("What's yo name?", "Tyranny");
-        document.getElementById('game-view').innerHTML = `
-        <div id='leaderboards'>
-        <p><strong>${player} Wins!</strong></p>
-        <p>Stats:</p>
-        <p>Cookies Fired: ${this.score.cookiesFired}</p>
-        <p>Cookies Hit: ${this.score.cookiesHit}</p>
-        <p>Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
-        </div>
-        `
+        // document.getElementById('life-stats').innerHTML = "<h1 style='margin-top: 0;, text-align: center;'> FATALITY!</h1>"
+        // let player = prompt("What's yo name?", "Tyranny");
+        // document.getElementById('game-view').innerHTML = `
+        // <div id='leaderboards'>
+        // <p><strong>${player} Wins!</strong></p>
+        // <p>Stats:</p>
+        // <p>Cookies Fired: ${this.score.cookiesFired}</p>
+        // <p>Cookies Hit: ${this.score.cookiesHit}</p>
+        // <p>Cookie Accuracy: ${Math.floor((this.score.cookiesHit / this.score.cookiesFired) * 100)}%</p>
+        // </div>
+        // `
 
         this.submitScores()
     }
 
     submitScores() {
+        let username = prompt("What's yo name?", "Tyranny");
         fetch("http://localhost:3000/submit_score", {
             method: 'POST',
-            body: JSON.stringify({ username: "test", kills: this.score.kills, cookiesFired: this.score.cookiesFired, cookiesHit: this.score.cookiesHit }),
+            body: JSON.stringify({ username: username, kills: this.score.kills, cookiesFired: this.score.cookiesFired, cookiesHit: this.score.cookiesHit }),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-            .then(() => console.log("korean bbq"))
+        .then(this.getScores.bind(this))
+    }
+
+    getScores() {
+        fetch('http://localhost:3000/scores')
+        .then(resp => resp.json())
+        .then(this.displayLeaderboard.bind(this))
+    }
+
+    displayLeaderboard(scores) {
+        // document.getElementById('game-view').innerHTML = ""
+
+        const dataTable = [['Player', 'Vegetables Murdered', {'role': 'style'}]]
+    
+        for (const score of scores) {
+            let scoreInfo = [score.name, score.kills, "gold"]
+            dataTable.push(scoreInfo)
+        }
+    
+        google.charts.load('current', {'packages':['corechart', 'bar']});
+        google.charts.setOnLoadCallback(() => {
+            this.drawChart(dataTable)
+        });
+    }
+        
+    drawChart(dataTable) {
+        var data = google.visualization.arrayToDataTable(dataTable);
+
+        var options = {
+            title: 'Spooky Leaderboard',
+            hAxis: {
+                title: 'Cookie Chucker',
+            },
+            animation: {
+                "startup": true,
+                "duration": 500,
+                "easing": 'out'
+            }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('game-view'));
+        chart.draw(data, options);
     }
 }
