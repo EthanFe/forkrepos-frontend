@@ -84,6 +84,7 @@ class Character extends GameObject {
 
   reload() {
     this.playReloadEffect();
+    document.querySelector("footer").innerText = "Reloading...";
     setTimeout(() => {
       this.cookieCount = 30;
       this.updateCookieCounter();
@@ -143,9 +144,7 @@ class Character extends GameObject {
   }
 
   updateCookieCounter() {
-    document.querySelector("footer").innerText = `Cookie Counter: ${
-      this.cookieCount
-    }`;
+    document.querySelector("footer").innerText = `Ammo: ${this.cookieCount}`;
   }
 
   isOnGround() {

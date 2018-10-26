@@ -61,20 +61,15 @@ nav {
   top: 0;
 }
 
-#leaderboards {
-  color: whitesmoke;
-  font-family: "Herculanum";
-  font-size: 40px;
-  margin: 240px 0 0 450px;
-}
-
-.stats:before {
-  color: #f05d21;
-  font-size: 100%;
-}
-
 footer {
   position: absolute;
   bottom: 0;
   color: whitesmoke;
+}
+
+#stats {
+  color: whitesmoke;
+  font-family: "Herculanum";
+  font-size: 40px;
+  margin: 220px 0 0 450px;
 }
